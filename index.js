@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const http = require("http").Server(app);
@@ -20,7 +19,6 @@ io.on("connection", function (socket) {
         console.log("a user disconnected, nb ppl: " + nbPpl);
     });
     socket.on("chat message", function (msg) {
-        console.log("message: " + msg);
         io.emit("chat message", msg);
     });
 });

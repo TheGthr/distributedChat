@@ -12,46 +12,49 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    let pseudo;
-    function pseudoFun() {
-      let userInput = document.getElementById("pseudoForm").value;
-      if (userInput !== "") {
-        pseudo = userInput;
-        console.log(pseudo);
-        document.getElementById("formPseudo").style.display = "none";
-        document.getElementById("formMessages").style.display = "block";
-      }
-    }
-
-    $(function () {
-      let socket = io();
-      $("#formMessages").submit(function () {
-        socket.emit("chat message", $("#m").val());
-        $("#m").val("");
-        return false;
-      });
-      socket.on("chat message", function (msg) {
-        $("#messages").append($("<li>").text(pseudo + " wrote: " + msg));
-      });
-      socket.on("connection", function () {
-        $("#messages").append($("<li>").text("New user connected"));
-      });
-    });
-  </script>
+  <!-- My script -->
+  <script src="messages.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <ul id="messages"></ul>
-    <form action="" class="form-group" id="formMessages">
-      <label for="m">Enter your message:</label>
-      <input id="m" autocomplete="off" autofocus required class="form-control" /><button class="btn">Send</button>
-    </form>
-    <form action="javascript:void(0);" id="formPseudo">
-      <label for="pseudoForm">Enter your pseudo:</label>
-      <input id="pseudoForm" autocomplete="off" autofocus required class="form-control" /><button class="btn" onclick="pseudoFun()">Send</button>
-    </form>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand">Distributed Chat</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Page 1</a></li>
+        <!-- Make a ddropdown menu with all the wanted information -->
+      </ul>
+    </div>
+  </nav>
+  <div class="container chat-body">
+    <div class="container scroll-div">
+      <ul id="messages" class="list-group"></ul>
+    </div>
+  </div>
+  <div class="navbar-fixed-bottom form-body">
+    <div class="container">
+      <form action="" id="formMessages" class="form-horizontal">
+        <div class="form-group">
+          <label for="m">Enter your message:</label>
+          <input id="m" autocomplete="off" autofocus required class="form-control" />
+        </div>
+        <div class="form-group">
+          <button class="btn">Send</button>
+        </div>
+      </form>
+      <form action="javascript:void(0);" id="formPseudo" class="form-horizontal">
+        <div class="form-group">
+          <label for="pseudoForm">Enter your pseudo:</label>
+          <input id="pseudoForm" autocomplete="off" autofocus required class="form-control" />
+        </div>
+        <div class="form-group">
+          <button class="btn" onclick="pseudoFun()">Send</button>
+        </div>
+      </form>
+    </div>
   </div>
 </body>
 

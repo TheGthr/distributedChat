@@ -7,6 +7,23 @@ li {
     list-style: none;
 }
 
+/* .scroll-div {
+    overflow-y: scroll;
+    height: 400px;
+} */
+
+.chat-body {
+    margin-top: 5%;
+    margin-bottom: 5%
+}
+
+.form-body {
+    background-color: white;
+    border-top: solid 1px;
+    border-color: gray;
+    padding: 2%;
+}
+
 #formMessages {
     display: none;
 }
