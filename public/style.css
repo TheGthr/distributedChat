@@ -1,29 +1,45 @@
-textarea {
-    resize: none;
-    overflow: auto;
-}
-
-li {
-    list-style: none;
-}
-
-/* .scroll-div {
+.scroll-div {
     overflow-y: scroll;
-    height: 400px;
-} */
-
-.chat-body {
-    margin-top: 5%;
-    margin-bottom: 5%
+    height: 30em;
+    overflow-y: hidden;
+    /* border: solid 1px;
+    border-color: gray; */
 }
 
 .form-body {
     background-color: white;
-    border-top: solid 1px;
-    border-color: gray;
+    margin-bottom: -20px;
+    /* border-top: solid 1px;
+    border-color: gray; */
+    border-bottom: none;
     padding: 2%;
 }
 
-#formMessages {
+.panel-body {
+    padding-bottom: 0;
+}
+
+#input_zone {
     display: none;
+}
+
+p.message {
+    margin: 0px;
+    width: 100%;
+    height: 2.5em;
+    font-size: 2vh;
+    font-family: 'Comfortaa', sans-serif;
+    padding: 1vh;
+}
+
+.message:nth-child(even) {
+    background-color: rgb(231, 231, 231);
+}
+
+.message:nth-child(odd) {
+    background-color: rgb(255, 255, 255);
+}
+
+.pm {
+    font-weight: bold;
 }
