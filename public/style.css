@@ -1,35 +1,35 @@
-.scroll-div {
-    overflow-y: scroll;
-    height: 30em;
-    overflow-y: hidden;
-    /* border: solid 1px;
-    border-color: gray; */
-}
-
-.form-body {
-    background-color: white;
-    margin-bottom: -20px;
-    /* border-top: solid 1px;
-    border-color: gray; */
-    border-bottom: none;
-    padding: 2%;
-}
-
-.panel-body {
-    padding-bottom: 0;
-}
-
-#input_zone {
-    display: none;
-}
-
 p.message {
     margin: 0px;
     width: 100%;
     height: 2.5em;
     font-size: 2vh;
-    font-family: 'Comfortaa', sans-serif;
+    font-family: "Comfortaa", sans-serif;
     padding: 1vh;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.scroll-div {
+    overflow-y: scroll;
+    height: 30em;
+    /* overflow-y: hidden; */
+}
+
+.form-body {
+    background-color: white;
+    margin-bottom: -20px;
+    border-bottom: none;
+    padding: 2%;
+}
+
+.pull-right {
+    font-size: 80%;
+}
+
+.panel-body {
+    padding-bottom: 0;
 }
 
 .message:nth-child(even) {
@@ -42,4 +42,18 @@ p.message {
 
 .pm {
     font-weight: bold;
+}
+
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
+
+}
+
+#inputZone {
+    display: none;
+}
+
+#logoutBtn {
+    display: none;
 }

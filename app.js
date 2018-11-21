@@ -1,48 +1,44 @@
-const express = require('express')
-const app = express()
+const logger = require("./utils/logger");
+const express = require("express");
+const app = express();
 
-//middlewares
-app.use(express.static('public'))
+app.use(express.static("public"));
+app.get("/", (req, res) => {
+    res.render("index");
+});
+server = app.listen(3000);
+const io = require("socket.io")(server);
 
-
-//routes
-app.get('/', (req, res) => {
-    res.render('index')
-})
-
-//Listen on port 3000
-server = app.listen(3000)
-
-
-
-//socket.io instantiation
-const io = require("socket.io")(server)
-
-
-//listen on every connection
-io.on('connection', (socket) => {
-    console.log('New user connected');
-
-    //default username
+io.on("connection", (socket) => {
+    logger.info("New user connected");
+    console.log("New user connected");
     socket.username = "Anonymous";
 
-    //listen on change_username
-    socket.on('change_username', (data) => {
+    socket.on("changeUsername", (data) => {
         socket.username = data.username
+        logger.info(`Username changed: ${socket.username}`);
     });
 
-    //listen on new_message
-    socket.on('new_message', (data) => {
-        //broadcast the new message
-        io.sockets.emit('new_message', {
+    socket.on("logout", () => {
+        logger.info(`User logged out: ${socket.username}`);
+        socket.username = "Anonymous";
+    });
+
+    socket.on("newMessage", (data) => {
+        io.sockets.emit("newMessage", {
             message: data.message,
             username: socket.username
         });
     });
 
-    //listen on typing
-    socket.on('typing', (data) => {
-        socket.broadcast.emit('typing', {
+    socket.on("typing", (data) => {
+        socket.broadcast.emit("typing", {
+            username: socket.username
+        });
+    });
+
+    socket.on("noTyping", (data) => {
+        socket.broadcast.emit("noTyping", {
             username: socket.username
         });
     });
