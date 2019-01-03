@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Distributed Chat</title>
+    <!-- Socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- My scripts -->
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">Distributed Chat</a>
+            </div>
+            <span class="pull-right">
+                <button class="btn btn-danger navbar-btn" id="crash">
+                    Crash
+                </button>
+            </span>
+        </div>
+    </nav>
+    <div class="container">
+        <form action="javascript:void(0)" id="formPseudo" class="form-horizontal">
+            <div class="join-chat">
+                <div class="form-group">
+                    <label for="username">Enter your pseudo:</label>
+                    <input id="username" name="username" autocomplete="off" autofocus required class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button id="join-chat" class="btn">Send</button>
+                </div>
+            </div>
+        </form>
+        <form action="javascript:void(0)" id="inputZone" class="form-horizontal">
+            <div class="chat">
+                <div class="container scroll-div panel panel-default messages" id="chatroom">
+                    <section id="feedback" class="panel-body"></section>
+                </div>
+                <div class="form-group">
+                    <label for="message">Enter your message:</label>
+                    <input id="message" name="message" autocomplete="off" required class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button id="send-message" data-username="" class="btn">Send</button>
+                    <button id="leave-chat" data-username="" class="btn">Logout</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <footer class="navbar navbar-inverse navbar-fixed-bottom text-center">
+        <div>
+            <h5>Théo GAUTHIER</h5>
+        </div>
+        <div class="label label-primary chat-info fixed-bottom"></div>
+    </footer>
+</body>
+
+</html>

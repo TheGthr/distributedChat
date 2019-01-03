@@ -1,3 +1,14 @@
+footer {
+    position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+}
+
+footer h5 {
+    color: #ffffffd3
+}
+
 p.message {
     margin: 0px;
     width: 100%;
@@ -50,10 +61,16 @@ p.message {
 
 }
 
-#inputZone {
+.chat {
     display: none;
 }
 
-#logoutBtn {
-    display: none;
+.msg {
+    width: 100%;
+}
+
+.user {
+    float: left;
+    margin-right: 10px;
+    font-weight: bold;
 }

@@ -1,17 +1,19 @@
 {
-  "name": "distributedchat",
-  "version": "1.0.0",
-  "description": "Distributed Chat",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
-  },
-  "author": "Théo GAUTHIER",
-  "dependencies": {
-    "express": "^4.16.4",
-    "nodemon": "^1.18.5",
-    "socket.io": "^2.1.1",
-    "winston": "^3.1.0"
-  }
+    "name": "distributed-chat",
+    "version": "0.0.1",
+    "description": "DSV chat",
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "express": "^4.10.2",
+        "redis": "^2.6.3",
+        "socket.io": "^1.7.1",
+        "winston": "^3.1.0"
+    },
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "engines": {
+        "node": "4.1.1"
+    }
 }
