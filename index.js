@@ -42,7 +42,7 @@ let port = process.env.PORT || 8080;
 
 // Start the Server
 http.listen(port, function () {
-    console.log('Server Started. Listening on *:' + port);
+    console.log('Server Started. Listening on http://localhost:' + port);
 });
 
 // Store people in chatroom
