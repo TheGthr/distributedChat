@@ -5,7 +5,31 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const redis = require('redis');
+const RedisClustr = require('redis-clustr');
+const RedisClient = require('redis');
+const redis = new RedisClustr({
+    servers: [{
+        host: '127.0.0.1',
+        port: 6379
+    }, {
+        host: '10.0.2.15', // Xubuntu
+        port: 6380
+    }, {
+        host: '10.0.2.15', // Xubuntu
+        port: 6381
+    }, {
+        host: '10.0.2.15', // OpenSuse
+        port: 6382
+    }, {
+        host: '10.0.2.15', // OpenSuse
+        port: 6383
+    }],
+    slaves: 'share',
+    createClient: function (port, host) {
+        // this is the default behaviour
+        return RedisClient.createClient(port, host);
+    }
+});
 
 let creds = '';
 let client = '';
@@ -14,7 +38,8 @@ let client = '';
 fs.readFile('redis.json', 'utf-8', function (err, data) {
     if (err) throw err;
     creds = JSON.parse(data);
-    client = redis.createClient('redis://' + creds.user + '@' + creds.host + ':' + creds.port);
+    client = redis.createClient(6381, "10.0.2.15");
+    console.log(client.connection_options)
 
     // Redis Client Ready
     client.once('ready', function () {
@@ -68,6 +93,8 @@ app.get('/', function (req, res) {
 app.post('/join', function (req, res) {
     let username = req.body.username;
     if (chatters.indexOf(username) === -1) {
+        logger.info(req.ip);
+        logger.info(req.port);
         logger.info(`Username set: ${username}`);
         chatters.push(username);
         client.set('chatUsers', JSON.stringify(chatters));
@@ -134,5 +161,4 @@ io.on('connection', function (socket) {
     socket.on('updateChatterCount', function (data) {
         io.emit('countChatters', data);
     });
-
 });
