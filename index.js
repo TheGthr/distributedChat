@@ -7,23 +7,24 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const RedisClustr = require('redis-clustr');
 const RedisClient = require('redis');
+const serversArray = [{
+    host: '127.0.0.1',
+    port: 6379
+}, {
+    host: '10.0.2.15', // Xubuntu
+    port: 6380
+}, {
+    host: '10.0.2.15', // Xubuntu
+    port: 6381
+}, {
+    host: '10.0.2.15', // OpenSuse
+    port: 6382
+}, {
+    host: '10.0.2.15', // OpenSuse
+    port: 6383
+}];
 const redis = new RedisClustr({
-    servers: [{
-        host: '127.0.0.1',
-        port: 6379
-    }, {
-        host: '10.0.2.15', // Xubuntu
-        port: 6380
-    }, {
-        host: '10.0.2.15', // Xubuntu
-        port: 6381
-    }, {
-        host: '10.0.2.15', // OpenSuse
-        port: 6382
-    }, {
-        host: '10.0.2.15', // OpenSuse
-        port: 6383
-    }],
+    servers: serversArray,
     slaves: 'share',
     createClient: function (port, host) {
         // this is the default behaviour
@@ -35,31 +36,35 @@ let creds = '';
 let client = '';
 
 // Read credentials from JSON
-fs.readFile('redis.json', 'utf-8', function (err, data) {
-    if (err) throw err;
-    creds = JSON.parse(data);
-    client = redis.createClient(6381, "10.0.2.15");
-    console.log(client.connection_options)
+client = redis.createClient(serversArray[3].port, serversArray[3].host);
+console.log(client.connection_options);
 
-    // Redis Client Ready
-    client.once('ready', function () {
+client.on('error', (err) => {
+    client.quit();
+    let num = Math.floor(Math.random() * 4);
+    let newServ = serversArray[num];
+    client = redis.createClient(newServ.port, newServ.host);
+    console.log(client.connection_options);
+});
 
-        // Flush Redis DB
-        client.flushdb();
+// Redis Client Ready
+client.once('ready', function () {
 
-        // Initialize Chatters
-        client.get('chatUsers', function (err, reply) {
-            if (reply) {
-                chatters = JSON.parse(reply);
-            }
-        });
+    // Flush Redis DB
+    // client.flushdb();
 
-        // Initialize Messages
-        client.get('chatAppMessages', function (err, reply) {
-            if (reply) {
-                chatMessages = JSON.parse(reply);
-            }
-        });
+    // Initialize Chatters
+    client.get('chatUsers', function (err, reply) {
+        if (reply) {
+            chatters = JSON.parse(reply);
+        }
+    });
+
+    // Initialize Messages
+    client.get('chatAppMessages', function (err, reply) {
+        if (reply) {
+            chatMessages = JSON.parse(reply);
+        }
     });
 });
 
